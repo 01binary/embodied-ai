@@ -56,6 +56,13 @@ To talk to a model, you simply send it a list of messages and it will "predict" 
 
 Each message in a conversation has a `role` property which can be `system`, `assistant`, or `user`. The system prompt is usually the first message in the conversation with role `system`.
 
+Install PostMan to test the server:
+
+```bash
+sudo snap install postman --classic
+postman
+```
+
 Try sending a POST request to `http://localhost:1234/v1/chat/completions` LLM server with this body:
 
 ```json
@@ -194,7 +201,7 @@ pipx install huggingface_hub
 Verify the installation was successful:
 
 ```bash
-huggingface-cli --version
+huggingface-cli version
 ```
 
 Login to Hugging Face:
@@ -232,8 +239,7 @@ For multi-modal support, download the **multi-modal projector** (file that typic
 + Projects it into Gemma’s token embedding space
 + Required for image inputs
 
-Without this file:
-→ Your model is text-only, even though it supports vision.
+Without this file the model will be used in text-only mode, even though it supports vision.
 
 ```bash
 huggingface-cli download \
@@ -278,13 +284,6 @@ To run a multi-modal model:
 ```
 
 Add `--media-path <path for images>` parameter to support image URLs. Anything after `file://` in image URLs will get added to the path specified here to get the full path.
-
-Install PostMan to test the server:
-
-```bash
-sudo snap install postman --classic
-postman
-```
 
 ## Fine-Tuning
 
