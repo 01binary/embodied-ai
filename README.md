@@ -354,3 +354,33 @@ To run the serial node:
 ```bash
 roslaunch embodied_ai serial_node.launch
 ```
+
+### LLM Chat Node (CLI Demo)
+
+This repo now includes a ROS node that opens a command-line chat loop and sends messages to a local OpenAI-compatible server at `127.0.0.1:1234`.
+
+When the node starts, it seeds conversation history from:
+
+- `system-prompt.md` (loaded as the system message)
+- `few-shot-prompts.json` (OpenAI-style message list with `role` and `content`)
+
+Run it with:
+
+```bash
+source ~/catkin_ws/devel/setup.bash
+roslaunch embodied_ai llm_chat.launch model:=gemma
+```
+
+or directly:
+
+```bash
+source ~/catkin_ws/devel/setup.bash
+rosrun embodied_ai llm_chat_node.py _model:=gemma
+```
+
+Supported CLI commands:
+
+- `/reset` resets to system + few-shot seed messages
+- `/exit` quits
+
+If the assistant reply contains JSON object(s) or array(s), each parsed payload is sent to `toolCallback(payload)` in the node. This callback currently logs and prints the parsed JSON, and can be wired to ROS message publishing in the next step.

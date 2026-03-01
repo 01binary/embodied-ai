@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Turn on the LED."
+  },
+  {
+    "role": "assistant",
+    "content": "{\"tool\":\"set_led\",\"state\":true}"
+  },
+  {
+    "role": "user",
+    "content": "Move the servo to 45 degrees."
+  },
+  {
+    "role": "assistant",
+    "content": "{\"tool\":\"set_servo_angle\",\"angle_deg\":45}"
+  }
+]
