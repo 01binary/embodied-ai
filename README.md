@@ -354,6 +354,87 @@ To run the serial node:
 roslaunch embodied_ai serial_node.launch
 ```
 
+### Intel RealSense D435 (ROS Noetic + RViz)
+
+Install ROS RealSense wrapper and RViz:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y \
+  ros-noetic-realsense2-camera \
+  ros-noetic-realsense2-description \
+  ros-noetic-rviz
+```
+
+Optional but useful Intel RealSense tools:
+
+```bash
+sudo apt-get install -y \
+  librealsense2-utils \
+  librealsense2-dev \
+  librealsense2-udev-rules
+```
+
+Build and source the workspace:
+
+```bash
+cd ~/catkin_ws
+catkin_make
+source ~/catkin_ws/devel/setup.bash
+```
+
+Launch D435 with RViz using this repo's launch file:
+
+```bash
+roslaunch embodied_ai realsense_d435_rviz.launch
+```
+
+Files added for this:
+
+- `launch/realsense_d435_rviz.launch`
+- `rviz/realsense_d435.rviz`
+
+### Running Arduino + D435 Together (USB Stability)
+
+This demo uses:
+
+- Arduino on `/dev/ttyACM0` (or better, a stable `/dev/serial/by-id/...` path)
+- RealSense D435 on USB 3.x
+
+Use a stable Arduino device path so reconnect order does not break the serial node:
+
+```bash
+ls -l /dev/serial/by-id/
+```
+
+Then launch serial with the by-id path:
+
+```bash
+roslaunch embodied_ai serial_node.launch port:=/dev/serial/by-id/<your-arduino-id>
+```
+
+Launch both Arduino serial + D435 (+RViz) together:
+
+```bash
+roslaunch embodied_ai full_demo.launch \
+  arduino_port:=/dev/serial/by-id/<your-arduino-id>
+```
+
+If needed, select a specific D435 by serial number:
+
+```bash
+roslaunch embodied_ai full_demo.launch \
+  arduino_port:=/dev/serial/by-id/<your-arduino-id> \
+  serial_no:=<d435_serial_number>
+```
+
+Recommended to avoid USB interference:
+
+- Keep D435 on a USB 3.x port (or powered USB 3 hub).
+- Keep Arduino on a separate USB port/root hub if possible.
+- Avoid long/low-quality USB cables.
+- If you see RealSense bandwidth warnings, reduce camera load (disable pointcloud or lower resolution/FPS in camera params).
+
 The following commands are supported:
 
 ```bash

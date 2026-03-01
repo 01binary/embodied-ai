@@ -1,0 +1,23 @@
+<launch>
+  <arg name="arduino_port" default="/dev/ttyACM0"/>
+  <arg name="arduino_baud" default="115200"/>
+
+  <arg name="camera" default="camera"/>
+  <arg name="serial_no" default=""/>
+  <arg name="enable_pointcloud" default="true"/>
+  <arg name="align_depth" default="true"/>
+  <arg name="start_rviz" default="true"/>
+
+  <include file="$(find embodied_ai)/launch/serial_node.launch">
+    <arg name="port" value="$(arg arduino_port)"/>
+    <arg name="baud" value="$(arg arduino_baud)"/>
+  </include>
+
+  <include file="$(find embodied_ai)/launch/realsense_d435_rviz.launch">
+    <arg name="camera" value="$(arg camera)"/>
+    <arg name="serial_no" value="$(arg serial_no)"/>
+    <arg name="enable_pointcloud" value="$(arg enable_pointcloud)"/>
+    <arg name="align_depth" value="$(arg align_depth)"/>
+    <arg name="start_rviz" value="$(arg start_rviz)"/>
+  </include>
+</launch>
