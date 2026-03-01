@@ -5,14 +5,38 @@
   },
   {
     "role": "assistant",
-    "content": "{\"tool\":\"set_led\",\"state\":true}"
+    "content": "[set_led(on=true)]"
   },
   {
     "role": "user",
-    "content": "Move the servo to 45 degrees."
+    "content": "Turn the solenoid off."
   },
   {
     "role": "assistant",
-    "content": "{\"tool\":\"set_servo_angle\",\"angle_deg\":45}"
+    "content": "[set_solenoid(on=false)]"
+  },
+  {
+    "role": "user",
+    "content": "Set servo to 35%."
+  },
+  {
+    "role": "assistant",
+    "content": "[set_servo_percent(percent=35)]"
+  },
+  {
+    "role": "user",
+    "content": "Set the servo to 120 degrees."
+  },
+  {
+    "role": "assistant",
+    "content": "[set_servo_angle(angle_deg=120)]"
+  },
+  {
+    "role": "user",
+    "content": "What is the servo angle and are LED and solenoid on?"
+  },
+  {
+    "role": "assistant",
+    "content": "[get_actuator_state()]"
   }
 ]

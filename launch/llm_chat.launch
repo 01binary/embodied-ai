@@ -4,6 +4,8 @@
   <arg name="temperature" default="0.2"/>
   <arg name="max_tokens" default="512"/>
   <arg name="timeout_sec" default="120.0"/>
+  <arg name="cmd_topic" default="actuator/cmd"/>
+  <arg name="state_topic" default="actuator/state"/>
   <arg name="system_prompt_file" default="system-prompt.md"/>
   <arg name="few_shot_file" default="few-shot-prompts.json"/>
 
@@ -13,6 +15,8 @@
     <param name="temperature" value="$(arg temperature)"/>
     <param name="max_tokens" value="$(arg max_tokens)"/>
     <param name="timeout_sec" value="$(arg timeout_sec)"/>
+    <param name="cmd_topic" value="$(arg cmd_topic)"/>
+    <param name="state_topic" value="$(arg state_topic)"/>
     <param name="system_prompt_file" value="$(arg system_prompt_file)"/>
     <param name="few_shot_file" value="$(arg few_shot_file)"/>
   </node>
