@@ -370,7 +370,7 @@ rostopic pub -1 /actuator/cmd embodied_ai/ActuatorCommand '{ solenoid: true }'
 
 ### LLM Chat Node (CLI Demo)
 
-This repo now includes a ROS node that opens a command-line chat loop and sends messages to a local OpenAI-compatible server at `127.0.0.1:1234`.
+This repo includes a ROS node that opens a command-line chat loop and sends messages to a local OpenAI-compatible server at `127.0.0.1:1234`.
 
 When the node starts, it seeds conversation history from:
 

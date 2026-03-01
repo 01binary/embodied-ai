@@ -7,10 +7,10 @@
 #include <embodied_ai/ActuatorCommand.h>
 #include <embodied_ai/ActuatorState.h>
 
-#define PIN_LED 19
-#define PIN_SOL 22
-#define PIN_SERVO_SIG 20
-#define PIN_SERVO_POS A5
+#define PIN_LED 3
+#define PIN_SOL 5
+#define PIN_SERVO_SIG 4
+#define PIN_SERVO_POS A0
 
 static uint16_t encoderMin = 0;
 static uint16_t encoderMax = 1023;
