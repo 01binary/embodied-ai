@@ -8,8 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
   FILES
-    messages/ActuatorCommand.msg
-    messages/ActuatorState.msg
+    ActuatorCommand.msg
+    ActuatorState.msg
 )
 
 generate_messages(

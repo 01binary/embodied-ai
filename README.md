@@ -322,3 +322,35 @@ The JSON typically confirms to [ShareGPT](https://sharegpt4o.github.io/) or [Hug
     ]
 }
 ```
+
+## Integration
+
+Once a model web server is running, all that's needed is detecting if a message from AI is JSON or Python (whichever protocol you used) and hangling it as a tool/function call.
+
+To build the ROS project in this repository:
+
+```bash
+catkin_make -C ~/catkin_ws
+source ~/catkin_ws/devel/setup.bash
+```
+
+This project uses ROS Serial package to enable running code that communicates with the rest of the robot system.
+
+To export messages for ROS Serial to run on an Arduino:
+
+```bash
+sudo apt update
+sudo apt install -y \
+  ros-noetic-rosserial \
+  ros-noetic-rosserial-arduino \
+  ros-noetic-rosserial-python
+
+source ~/catkin_ws/devel/setup.bash
+rosrun rosserial_arduino make_libraries.py ~/Arduino/libraries
+```
+
+To run the serial node:
+
+```bash
+roslaunch embodied_ai serial_node.launch
+```
