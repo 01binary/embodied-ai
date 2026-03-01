@@ -369,11 +369,10 @@ sudo apt-get install -y \
 Optional but useful Intel RealSense tools:
 
 ```bash
-sudo apt-get install -y \
-  librealsense2-utils \
-  librealsense2-dev \
-  librealsense2-udev-rules
+sudo apt-get install -y ros-noetic-librealsense2
 ```
+
+> `librealsense2-utils` and `librealsense2-udev-rules` are provided by Intel's separate apt repository. If that repo is not configured, those package names will not be available on Ubuntu 20.04.
 
 Build and source the workspace:
 
@@ -428,6 +427,8 @@ roslaunch embodied_ai full_demo.launch \
   serial_no:=<d435_serial_number>
 ```
 
+By default in this repo, `serial_no` is left empty so a single connected RealSense camera is auto-selected.
+
 Recommended to avoid USB interference:
 
 - Keep D435 on a USB 3.x port (or powered USB 3 hub).
@@ -478,3 +479,13 @@ Supported CLI commands:
 - `/exit` quits
 
 If the assistant reply contains JSON object(s) or array(s), each parsed payload is sent to `toolCallback(payload)` in the node. This callback currently logs and prints the parsed JSON, and can be wired to ROS message publishing in the next step.
+
+## Demo
+
+To run the complete demo:
+
+```bash
+source /opt/ros/noetic/setup.bash
+source ~/catkin_ws/devel/setup.bash
+roslaunch embodied_ai full_demo.launch
+```

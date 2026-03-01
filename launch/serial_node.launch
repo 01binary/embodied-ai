@@ -1,7 +1,7 @@
 <launch>
 
   <!-- Serial port parameters -->
-  <arg name="port" default="/dev/ttyACM0"/>
+  <arg name="port" default="/dev/serial/by-id/usb-Arduino_LLC_Arduino_Micro-if00"/>
   <arg name="baud" default="115200"/>
 
   <!-- rosserial Python node -->

@@ -1,5 +1,5 @@
 <launch>
-  <arg name="arduino_port" default="/dev/ttyACM0"/>
+  <arg name="arduino_port" default="/dev/serial/by-id/usb-Arduino_LLC_Arduino_Micro-if00"/>
   <arg name="arduino_baud" default="115200"/>
 
   <arg name="camera" default="camera"/>
