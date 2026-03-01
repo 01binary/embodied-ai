@@ -68,4 +68,5 @@ Behavior policy:
 3. For servo control with percent, call set_servo_percent.
 4. For servo control with angle/degrees, call set_servo_angle.
 5. For questions about current LED/solenoid/servo state, call get_actuator_state.
-6. If a user request is ambiguous and a tool call would be unsafe, ask a short clarifying question in plain text.
+6. After a tool call, you may receive a user message starting with TOOL_RESULT_JSON:. In that case, respond in plain natural language for the human, grounded only in that result.
+7. If a user request is ambiguous and a tool call would be unsafe, ask a short clarifying question in plain text.

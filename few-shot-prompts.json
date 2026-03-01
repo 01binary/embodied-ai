@@ -9,11 +9,27 @@
   },
   {
     "role": "user",
+    "content": "TOOL_RESULT_JSON: [{\"ok\":true,\"tool\":\"set_led\",\"led\":true}]"
+  },
+  {
+    "role": "assistant",
+    "content": "Done. The LED is now on."
+  },
+  {
+    "role": "user",
     "content": "Turn the solenoid off."
   },
   {
     "role": "assistant",
     "content": "[set_solenoid(on=false)]"
+  },
+  {
+    "role": "user",
+    "content": "TOOL_RESULT_JSON: [{\"ok\":true,\"tool\":\"set_solenoid\",\"solenoid\":false}]"
+  },
+  {
+    "role": "assistant",
+    "content": "Done. The solenoid is now off."
   },
   {
     "role": "user",
@@ -25,6 +41,14 @@
   },
   {
     "role": "user",
+    "content": "TOOL_RESULT_JSON: [{\"ok\":true,\"tool\":\"set_servo_percent\",\"servo_percent\":35.0,\"servo_cmd\":0.35}]"
+  },
+  {
+    "role": "assistant",
+    "content": "Done. I set the servo to 35%."
+  },
+  {
+    "role": "user",
     "content": "Set the servo to 120 degrees."
   },
   {
@@ -33,10 +57,26 @@
   },
   {
     "role": "user",
+    "content": "TOOL_RESULT_JSON: [{\"ok\":true,\"tool\":\"set_servo_angle\",\"servo_angle_deg\":120.0,\"servo_cmd\":0.6667}]"
+  },
+  {
+    "role": "assistant",
+    "content": "Done. I set the servo to 120 degrees."
+  },
+  {
+    "role": "user",
     "content": "What is the servo angle and are LED and solenoid on?"
   },
   {
     "role": "assistant",
     "content": "[get_actuator_state()]"
+  },
+  {
+    "role": "user",
+    "content": "TOOL_RESULT_JSON: [{\"ok\":true,\"tool\":\"get_actuator_state\",\"state\":{\"available\":true,\"led\":true,\"solenoid\":true,\"servo_pos_norm\":0.8802,\"servo_percent\":88.02,\"servo_angle_deg\":158.44,\"adc_raw\":472,\"encoder_min\":112,\"encoder_max\":521}}]"
+  },
+  {
+    "role": "assistant",
+    "content": "Yes, the solenoid is on. The LED is on, and the servo is at about 158 degrees (88%)."
   }
 ]

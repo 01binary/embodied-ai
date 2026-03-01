@@ -357,26 +357,53 @@ class LlmChatNode:
 
         if not calls:
             print("[toolCallback] Ignored unsupported payload: {}".format(json.dumps(payload)))
-            return
+            return []
 
+        results = []
         for call in calls:
             name = call.get("name")
             arguments = call.get("arguments", {})
             try:
                 result = self._dispatch_tool(name, arguments)
                 print("[toolCallback] result {}".format(json.dumps(result)))
+                results.append(result)
             except Exception as e:
+                error_result = {"ok": False, "tool": name, "error": str(e)}
                 print("[toolCallback] error {}".format(str(e)))
+                results.append(error_result)
+        return results
+
+    def _request_natural_language_followup(self, tool_results):
+        tool_summary = json.dumps(tool_results)
+        followup_prompt = (
+            "TOOL_RESULT_JSON: {}\n"
+            "Use this tool result to answer the user's request in plain text. "
+            "Do not emit function calls unless another action is required."
+        ).format(tool_summary)
+        self.messages.append({"role": "user", "content": followup_prompt})
+
+        try:
+            response_json = self.send_chat_completion()
+            assistant_text = response_json["choices"][0]["message"]["content"]
+            self.messages.append({"role": "assistant", "content": assistant_text})
+            print("assistant> {}".format(assistant_text))
+        except Exception as e:
+            rospy.logerr("Failed follow-up completion after tool result (%s): %s", type(e).__name__, str(e))
 
     def process_assistant_reply(self, assistant_text):
         print("assistant> {}".format(assistant_text))
+        tool_results = []
+
         function_calls = self._extract_function_calls(assistant_text)
         for call in function_calls:
-            self.tool_callback(call)
+            tool_results.extend(self.tool_callback(call))
 
         json_payloads = self._extract_json_payloads(assistant_text)
         for payload in json_payloads:
-            self.tool_callback(payload)
+            tool_results.extend(self.tool_callback(payload))
+
+        if tool_results:
+            self._request_natural_language_followup(tool_results)
 
     def run(self):
         print("LLM chat started.")
