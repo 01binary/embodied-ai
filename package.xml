@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>embodied_ai</name>
+  <version>0.1.0</version>
+  <description>Custom messages for a ROS Noetic + rosserial demo controlling LED, solenoid, and an analog-feedback servo.</description>
+
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <export/>
+</package>
