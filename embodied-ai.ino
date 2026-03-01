@@ -142,7 +142,7 @@ void setup()
   // Default safe outputs
   led_state = false;
   sol_state = false;
-  digitalWrite(PIN_LED, led_state ? LOW : HIGH);
+  digitalWrite(PIN_LED, led_state ? HIGH : LOW);
   digitalWrite(PIN_SOL, sol_state ? HIGH : LOW);
 
   initServo();
@@ -151,7 +151,7 @@ void setup()
 void loop()
 {
   // Apply outputs
-  digitalWrite(PIN_LED, led_state ? LOW : HIGH);
+  digitalWrite(PIN_LED, led_state ? HIGH : LOW);
   digitalWrite(PIN_SOL, sol_state ? HIGH : LOW);
 
   if (have_servo_target) {
