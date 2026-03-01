@@ -355,6 +355,20 @@ To run the serial node:
 roslaunch embodied_ai serial_node.launch
 ```
 
+The following commands are supported:
+
+```bash
+rostopic pub -1 /actuator/cmd embodied_ai/ActuatorCommand '{ led: true }'
+```
+
+```bash
+rostopic pub -1 /actuator/cmd embodied_ai/ActuatorCommand '{ servo_enable: true, servo_cmd: 0.0 }'
+```
+
+```bash
+rostopic pub -1 /actuator/cmd embodied_ai/ActuatorCommand '{ solenoid: true }'
+```
+
 ### LLM Chat Node (CLI Demo)
 
 This repo now includes a ROS node that opens a command-line chat loop and sends messages to a local OpenAI-compatible server at `127.0.0.1:1234`.

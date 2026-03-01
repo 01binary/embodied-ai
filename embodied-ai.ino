@@ -4,8 +4,8 @@
 #include <Servo.h>
 
 #include <ros.h>
-#include <embodied-ai/ActuatorCommand.h>
-#include <embodied-ai/ActuatorState.h>
+#include <embodied_ai/ActuatorCommand.h>
+#include <embodied_ai/ActuatorState.h>
 
 #define PIN_LED 19
 #define PIN_SOL 22
@@ -29,10 +29,10 @@ Servo servo;
 
 ros::NodeHandle_<ArduinoHardware, 1, 1, 128, 128> nh;
 
-embodied-ai::ActuatorState state_msg;
+embodied_ai::ActuatorState state_msg;
 ros::Publisher pub_state("actuator/state", &state_msg);
 
-void command(const embodied-ai::ActuatorCommand& msg)
+void command(const embodied_ai::ActuatorCommand& msg)
 {
   led_state = msg.led;
   sol_state = msg.solenoid;
@@ -60,7 +60,7 @@ void feedback()
   pub_state.publish(&state_msg);
 }
 
-ros::Subscriber<embodied-ai::ActuatorCommand> sub_cmd("actuator/cmd", &command);
+ros::Subscriber<embodied_ai::ActuatorCommand> sub_cmd("actuator/cmd", &command);
 
 // Publish at ~10 Hz
 static unsigned long last_pub_ms = 0;
