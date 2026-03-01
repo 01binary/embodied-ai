@@ -20,7 +20,7 @@ class LlmChatNode:
         self.model = rospy.get_param("~model", "local-model")
         self.temperature = float(rospy.get_param("~temperature", 0.2))
         self.max_tokens = int(rospy.get_param("~max_tokens", 512))
-        self.timeout_sec = float(rospy.get_param("~timeout_sec", 120.0))
+        self.timeout_sec = float(rospy.get_param("~timeout_sec", 300.0))
         self.api_key = rospy.get_param("~api_key", os.environ.get("OPENAI_API_KEY", ""))
         self.system_prompt_file = rospy.get_param("~system_prompt_file", "system-prompt.md")
         self.few_shot_file = rospy.get_param("~few_shot_file", "few-shot-prompts.json")

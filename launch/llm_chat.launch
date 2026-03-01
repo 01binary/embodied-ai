@@ -3,7 +3,7 @@
   <arg name="model" default="local-model"/>
   <arg name="temperature" default="0.2"/>
   <arg name="max_tokens" default="512"/>
-  <arg name="timeout_sec" default="120.0"/>
+  <arg name="timeout_sec" default="300.0"/>
   <arg name="cmd_topic" default="actuator/cmd"/>
   <arg name="state_topic" default="actuator/state"/>
   <arg name="system_prompt_file" default="system-prompt.md"/>
