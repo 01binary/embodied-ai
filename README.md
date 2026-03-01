@@ -480,6 +480,12 @@ Supported CLI commands:
 
 If the assistant reply contains JSON object(s) or array(s), each parsed payload is sent to `toolCallback(payload)` in the node. This callback currently logs and prints the parsed JSON, and can be wired to ROS message publishing in the next step.
 
+## RealSense Frame
+
+```bash
+python3 -c "import os,rospy,cv2; from sensor_msgs.msg import Image; from cv_bridge import CvBridge; rospy.init_node('snap',anonymous=True,disable_signals=True); msg=rospy.wait_for_message('/camera/color/image_raw', Image, timeout=10); img=CvBridge().imgmsg_to_cv2(msg, 'bgr8'); p=os.path.expanduser('~/realsense_color.png'); cv2.imwrite(p,img); print('saved:',p)"
+```
+
 ## Demo
 
 To run the complete demo:
