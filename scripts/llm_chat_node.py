@@ -4,6 +4,7 @@ import ast
 import json
 import os
 import re
+import socket
 import sys
 import urllib.error
 import urllib.request
@@ -112,15 +113,24 @@ class LlmChatNode:
             "messages": self.messages,
             "temperature": self.temperature,
             "max_tokens": self.max_tokens,
+            "stream": False,
         }
         payload_bytes = json.dumps(payload).encode("utf-8")
-        headers = {"Content-Type": "application/json"}
+        headers = {
+            "Content-Type": "application/json",
+            "Connection": "close",
+        }
         if self.api_key:
             headers["Authorization"] = "Bearer {}".format(self.api_key)
 
         req = urllib.request.Request(url=url, data=payload_bytes, headers=headers, method="POST")
         with urllib.request.urlopen(req, timeout=self.timeout_sec) as response:
-            response_text = response.read().decode("utf-8")
+            content_len = response.headers.get("Content-Length")
+            if content_len is not None:
+                response_bytes = response.read(int(content_len))
+            else:
+                response_bytes = response.read()
+            response_text = response_bytes.decode("utf-8")
             return json.loads(response_text)
 
     @staticmethod
@@ -372,6 +382,7 @@ class LlmChatNode:
         print("LLM chat started.")
         print("Endpoint: {}/chat/completions".format(self.api_base.rstrip("/")))
         print("Model: {}".format(self.model))
+        print("Timeout (sec): {}".format(self.timeout_sec))
         print("Command topic: {}".format(self.cmd_topic))
         print("State topic: {}".format(self.state_topic))
         print("System prompt: {}".format(self.system_prompt_path))
@@ -406,8 +417,11 @@ class LlmChatNode:
             except urllib.error.URLError as e:
                 rospy.logerr("Could not reach LLM server: %s", str(e))
                 continue
+            except socket.timeout:
+                rospy.logerr("LLM request timed out after %.1f seconds", self.timeout_sec)
+                continue
             except Exception as e:
-                rospy.logerr("Unexpected LLM request error: %s", str(e))
+                rospy.logerr("Unexpected LLM request error (%s): %s", type(e).__name__, str(e))
                 continue
 
             try:
